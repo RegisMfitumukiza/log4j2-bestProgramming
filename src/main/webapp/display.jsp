@@ -7,14 +7,13 @@
 </head>
 <body>
 
-    <h1>User Information</h1>
+    <h1>Search ID</h1>
     
     <form action="display" method="get">
         <label>
             ID:
         </label>
         <input type="text" name="id"><br><br>
-        
         <input type="submit" value="Search">
     </form>
 </body>

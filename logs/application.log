@@ -1,0 +1,4 @@
+2024-08-02 11:07:20.009 [http-nio-8080-exec-5] INFO  servlets.DisplayServlet - Processing request for ID: 2
+2024-08-02 11:07:20.489 [http-nio-8080-exec-5] INFO  servlets.DisplayServlet - User found: omer Kamatali
+2024-08-02 11:07:49.581 [http-nio-8080-exec-7] INFO  servlets.DisplayServlet - Processing request for ID: 90
+2024-08-02 11:07:49.718 [http-nio-8080-exec-7] WARN  servlets.DisplayServlet - No user found for ID: 90

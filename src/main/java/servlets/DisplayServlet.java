@@ -13,9 +13,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @WebServlet("/display")
 public class DisplayServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
+    private static final Logger logger = LogManager.getLogger(DisplayServlet.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,11 +39,13 @@ public class DisplayServlet extends HttpServlet {
         String enteredId = request.getParameter("id");
 
         if (!enteredId.matches("\\d+")) {
+            logger.warn("Invalid ID entered: {}", enteredId);
             response.getWriter().println("<p>The id must be a number</p>");
             return;
         }
 
         Integer id = Integer.parseInt(enteredId);
+        logger.info("Processing request for ID: {}", id);
 
         try {
             String db_url = "jdbc:postgresql://localhost:5432/best_programming_db";
@@ -65,8 +72,10 @@ public class DisplayServlet extends HttpServlet {
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
 
+                logger.info("User found: {} {}", firstName, lastName);
                 out.println("<p>My name is " + firstName + " " + lastName + ", and my ID is " + id + ".</p>");
             } else {
+                logger.warn("No user found for ID: {}", id);
                 out.println("<p>Your ID does not exist</p>");
             }
 
@@ -77,7 +86,7 @@ public class DisplayServlet extends HttpServlet {
             pst.close();
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error("Error processing request", e);
             response.getWriter().println("<p>There was an error processing your request.</p>");
         }
     }
